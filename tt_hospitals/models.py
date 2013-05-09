@@ -3,7 +3,7 @@ from django.contrib.gis.db import models
 
 class Hospital(models.Model):
     file_nbr = models.CharField(max_length=20)
-    license_number = models.CharField(max_length=20, unique=True)
+    license_number = models.CharField(max_length=20)
     name = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
     zipcode = models.PositiveIntegerField()
