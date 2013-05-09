@@ -7,8 +7,7 @@ class Hospital(models.Model):
     name = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
     zipcode = models.PositiveIntegerField()
-    latitude = models.PointField()
-    longitude = models.PointField()
+    coordinates = models.PointField()
     phone = models.CharField(max_length=250)
     status = models.CharField(max_length=20)  # TODO: Investigate, boolean?
     original_date = models.DateField()
@@ -17,6 +16,8 @@ class Hospital(models.Model):
     city = models.CharField(max_length=250)
     state = models.CharField(max_length=2, default='TX')
     county = models.CharField(max_length=250)
+
+    objects = models.GeoManager()
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.city)
