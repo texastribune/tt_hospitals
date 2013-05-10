@@ -7,6 +7,13 @@ from . import models
 
 
 class NearbyHospitalApiView(ApiView):
+    def get_json(self, data):
+        response = super(NearbyHospitalApiView, self).get_json(data)
+        if 'callback' in self.request.GET:
+            response.content = '%s(%s)' % (self.request.GET['callback'],
+                    response.content)
+        return response
+
     def get_content_data(self):
         point = Point(float(self.request.GET['lat']),
                 float(self.request.GET['lng']))
