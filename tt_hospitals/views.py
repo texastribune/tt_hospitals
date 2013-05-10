@@ -15,19 +15,17 @@ class NearbyHospitalApiView(ApiView):
         return response
 
     def get_content_data(self):
-        point = Point(float(self.request.GET['lat']),
-                float(self.request.GET['lng']))
+        point = Point(float(self.request.GET['lng']),
+                float(self.request.GET['lat']))
         distance = self.request.GET.get('distance', 5)
         nearby = models.Hospital.objects.distance(point).filter(
                 coordinates__distance_lte=(point, D(mi=distance)))
 
         data = []
         for hospital in nearby:
-            geojson = u'{ "type": "Point", "coordinates": [ %s, %s ] }' % (
-                    hospital.coordinates.y, hospital.coordinates.x)
             data.append({
                 'name': unicode(hospital.name),
                 'distance': round(hospital.distance.mi, 2),
-                'geojson': JSON(geojson)
+                'geojson': JSON(hospital.coordinates.geojson)
             })
         return data
