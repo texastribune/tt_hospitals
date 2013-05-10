@@ -23,7 +23,7 @@ class Command(NoArgsCommand):
                     city=row['City'],
                     state=row['St'],
                     zipcode=int(row['Zip']),
-                    coordinates=Point(float(row['Lat']), float(row['Lng'])),
+                    coordinates=Point(float(row['Lng']), float(row['Lat'])),
                     county=row['County'],
                     phone=row['Phone'],
                     status=row['Status'],
