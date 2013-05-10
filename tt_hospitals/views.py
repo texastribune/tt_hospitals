@@ -23,9 +23,11 @@ class NearbyHospitalApiView(ApiView):
 
         data = []
         for hospital in nearby:
+            geojson = u'{ "type": "Point", "coordinates": [ %s, %s ] }' % (
+                    hospital.coordinates.y, hospital.coordinates.x)
             data.append({
                 'name': unicode(hospital.name),
                 'distance': round(hospital.distance.mi, 2),
-                'geojson': JSON(hospital.coordinates.geojson),
+                'geojson': JSON(geojson)
             })
         return data
